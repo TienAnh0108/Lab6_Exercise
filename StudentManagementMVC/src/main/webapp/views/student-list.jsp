@@ -148,10 +148,21 @@
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class="navbar">
             <h1>📚 Student Management System</h1>
             <p class="subtitle">MVC Pattern with Jakarta EE & JSTL</p>
-
+            <div class="navbar-right">
+                <div class="user-info">
+                    <span>Welcome, ${sessionScope.fullName}</span>
+                    <span class="role-badge role-${sessionScope.role}">
+                        ${sessionScope.role}
+                    </span>
+                </div>
+                <a href="dashboard" class="btn-nav">Dashboard</a>
+                <a href="logout" class="btn-logout">Logout</a>
+            </div>
+        </div>
+        <div class="container">
             <!-- Success Message -->
             <c:if test="${not empty param.message}">
                 <div class="message success">
