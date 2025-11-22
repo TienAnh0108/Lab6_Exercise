@@ -293,6 +293,19 @@ public class StudentDAO {
     }
 
     public int getTotalStudents() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int total = 0;
+        String sql = "SELECT COUNT(*) as total FROM students";
+
+        try (Connection conn = getConnection(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return total;
     }
 }
