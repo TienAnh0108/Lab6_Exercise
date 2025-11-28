@@ -151,15 +151,18 @@
         <div class="navbar">
             <h1>📚 Student Management System</h1>
             <p class="subtitle">MVC Pattern with Jakarta EE & JSTL</p>
-            <div class="navbar-right">
+            <div class="navbar-right" style="display:flex; gap:15px; align-items:center;">
                 <div class="user-info">
                     <span>Welcome, ${sessionScope.fullName}</span>
-                    <span class="role-badge role-${sessionScope.role}">
+                    <span class="role-badge role-${sessionScope.role}"
+                          style="padding:4px 8px; background:#555; border-radius:5px; margin-left:8px;">
                         ${sessionScope.role}
                     </span>
                 </div>
-                <a href="dashboard" class="btn-nav">Dashboard</a>
-                <a href="logout" class="btn-logout">Logout</a>
+
+                <a href="dashboard" style="color:white;">Dashboard</a>
+                <a href="change-password" style="color:white;">Change Password</a>   <!-- 🔥 NEW BUTTON -->
+                <a href="logout" style="color:white;">Logout</a>
             </div>
         </div>
         <div class="container">
@@ -262,6 +265,46 @@
                     </c:if>
                 </form>
             </div>
+
+            <!-- TODO: Add navigation bar -->
+            <div class="navbar">
+                <h2>📚 Student Management System</h2>
+                <div class="navbar-right">
+                    <div class="user-info">
+                        <span>Welcome, ${sessionScope.fullName}</span>
+                        <span class="role-badge role-${sessionScope.role}">
+                            ${sessionScope.role}
+                        </span>
+                    </div>
+                    <a href="dashboard">Dashboard</a>
+                    <a href="logout">Logout</a>
+                </div>
+            </div>
+
+            <!-- TODO: Show error from URL parameter -->
+            <c:if test="${not empty param.error}">
+                <div class="alert alert-error">
+                    ${param.error}
+                </div>
+            </c:if>
+
+            <!-- TODO: Add button - Admin only -->
+            <c:if test="${sessionScope.role eq 'admin'}">
+                <a href="student?action=new">➕ Add New Student</a>
+            </c:if>
+
+            <!-- In table header -->
+            <c:if test="${sessionScope.role eq 'admin'}">
+                <th>Actions</th>
+                </c:if>
+
+            <!-- In table rows -->
+            <c:if test="${sessionScope.role eq 'admin'}">
+                <td>
+                    <a href="student?action=edit&id=${student.id}">Edit</a>
+                    <a href="student?action=delete&id=${student.id}">Delete</a>
+                </td>
+            </c:if>
 
             <!-- ======================= SORT + TABLE ======================= -->
 
